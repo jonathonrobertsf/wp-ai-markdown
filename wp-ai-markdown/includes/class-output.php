@@ -81,7 +81,7 @@ class WPAIM_Output {
 		$ai_crawlers_enabled  = ! isset( $options['ai_crawlers_enabled'] ) || (bool) $options['ai_crawlers_enabled'];
 
 		$via_url_param = $url_param_enabled && isset( $_GET['format'] ) && $_GET['format'] === 'markdown';
-		$via_ai_agent  = $ai_crawlers_enabled && $this->is_ai_crawler();
+		$via_ai_agent  = $ai_crawlers_enabled && ( $this->is_ai_crawler() || $this->accepts_markdown() );
 
 		if ( ! $via_url_param && ! $via_ai_agent ) {
 			return;
@@ -181,6 +181,18 @@ class WPAIM_Output {
 
 		$md_url = add_query_arg( 'format', 'markdown', get_permalink() );
 		echo '<link rel="alternate" type="text/markdown" href="' . esc_url( $md_url ) . '" title="Markdown version" />' . "\n";
+	}
+
+	/**
+	 * Check whether the request sends an Accept header that includes text/markdown.
+	 */
+	private function accepts_markdown(): bool {
+		$accept = isset( $_SERVER['HTTP_ACCEPT'] ) ? (string) $_SERVER['HTTP_ACCEPT'] : '';
+		if ( empty( $accept ) ) {
+			return false;
+		}
+		return stripos( $accept, 'text/markdown' ) !== false
+			|| stripos( $accept, 'text/x-markdown' ) !== false;
 	}
 
 	/**
