@@ -69,7 +69,7 @@ class WPAIM_Admin {
 			'wpaim_main',
 			[
 				'key'     => 'ai_crawlers_enabled',
-				'label'   => __( 'Automatically serve Markdown to known AI crawlers (GPTBot, ClaudeBot, Perplexity, etc.) instead of HTML.', 'wp-ai-markdown' ),
+				'label'   => __( 'Automatically serve Markdown to requests that send an <code>Accept: text/markdown</code> header.', 'wp-ai-markdown' ),
 				'default' => true,
 			]
 		);
@@ -136,8 +136,12 @@ class WPAIM_Admin {
 						<code><?php echo esc_html( home_url( '/?format=markdown' ) ); ?></code>
 					</li>
 					<li>
-						<strong><?php esc_html_e( 'AI crawlers:', 'wp-ai-markdown' ); ?></strong><br/>
-						<?php esc_html_e( 'GPTBot, ClaudeBot, Perplexity, Google-Extended and others automatically receive Markdown instead of HTML when the option below is enabled.', 'wp-ai-markdown' ); ?>
+						<strong><?php esc_html_e( 'Accept header negotiation:', 'wp-ai-markdown' ); ?></strong><br/>
+						<?php esc_html_e( 'Any client sending', 'wp-ai-markdown' ); ?>
+						<code>Accept: text/markdown</code>
+						<?php esc_html_e( 'or', 'wp-ai-markdown' ); ?>
+						<code>Accept: text/x-markdown</code>
+						<?php esc_html_e( 'automatically receives Markdown when the option below is enabled.', 'wp-ai-markdown' ); ?>
 					</li>
 					<li>
 						<strong><?php esc_html_e( 'Discovery tag:', 'wp-ai-markdown' ); ?></strong><br/>

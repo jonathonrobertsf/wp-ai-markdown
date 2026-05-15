@@ -81,7 +81,7 @@ class WPAIM_Output {
 		$ai_crawlers_enabled  = ! isset( $options['ai_crawlers_enabled'] ) || (bool) $options['ai_crawlers_enabled'];
 
 		$via_url_param = $url_param_enabled && isset( $_GET['format'] ) && $_GET['format'] === 'markdown';
-		$via_ai_agent  = $ai_crawlers_enabled && ( $this->is_ai_crawler() || $this->accepts_markdown() );
+		$via_ai_agent  = $ai_crawlers_enabled && $this->accepts_markdown();
 
 		if ( ! $via_url_param && ! $via_ai_agent ) {
 			return;
